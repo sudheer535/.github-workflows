@@ -10,20 +10,14 @@ pool:
   name : Default
 
 steps:
-  - task: UsePythonVersion@0
-    inputs:
-      versionSpec:'3.x'
-      addToPath: true
-      
-   - script: |
-      python -m pip install --upgrade pip
-      pip install Flask
-      displayName: 'Install dependencies'
-   - script: |
-      python -m flask --version
-      python app.py &
-      displayName: 'Run Flask app'
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
 
-   - script: |
-       curl http://localhost:5000
-    displayName: 'Test app'
+- script: |
+    echo Add other tasks to build, test, and deploy your project.
+    echo See https://aka.ms/yaml
+  displayName: 'Run a multi-line script'
+- script: |
+   python -m pip install --upgrade pip
+   python install Flask
+   displayName: 'Installed dependencies'
