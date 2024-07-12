@@ -10,6 +10,10 @@ pool:
   name : Default
 
 steps:
+- task: UsePythonVersion@0
+  inputs:
+     versionSpec: '3.x'
+     addToPath: true
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
 
@@ -21,3 +25,10 @@ steps:
    python -m pip install --upgrade pip
    python install Flask
   displayName: 'Installed dependencies'
+- script: |
+    pyhon -m flask --version
+    python app.py &
+  displayName: 'Run Flask app'
+- script: |
+   curl http://localhost\:5000
+  displayName: 'Test app'
