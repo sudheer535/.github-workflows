@@ -3,16 +3,27 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
-stages:
-  - build
-  - test
+trigger:
+- main
 
-build_job:
-  stage: build
-  script:
-    - npm install
+pool:
+  name : Default
 
-test_job:
-  stage: test
-  script:
-    - npm test
+steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec:'3.x'
+      addToPath: true
+      
+   - script: |
+      python -m pip install --upgrade pip
+      pip install Flask
+      displayName: 'Install dependencies'
+   - script: |
+      python -m flask --version
+      python app.py &
+      displayName: 'Run Flask app'
+
+   - script: |
+       curl http://localhost:5000
+    displayName: 'Test app'
